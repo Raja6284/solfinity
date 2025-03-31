@@ -16,8 +16,9 @@ export function CreateToken() {
 
     const nameRef = useRef(null)
     const symbolRef = useRef(null)
-    //const imageUrlRef = useRef(null)
-    //const initalSupplyRef = useRef(null)
+    const initalSupplyRef = useRef(null)
+    const decimalRef = useRef(null)
+    const descriptionRef = useRef(null)
 
     const [file, setFile] = useState(null);
     const[fileName,setfileName] = useState("No file Choosen")
@@ -98,10 +99,9 @@ export function CreateToken() {
         
        await saveImage();
        const metadata = {
-
         name: nameRef.current?.value,
         symbol: symbolRef.current?.value,
-        description: "jsut for educational purpose",
+        description: descriptionRef.current?.value,
         image: await saveImage(),
          // Linking image on IPFS
         attributes: [
@@ -113,8 +113,7 @@ export function CreateToken() {
        console.log("this is metadata url " + url )
 
         const mintKeypair = Keypair.generate()
-
-        
+  
 
         const metadata1 = {
             mint: mintKeypair.publicKey,
@@ -171,78 +170,101 @@ export function CreateToken() {
 
     return (
         <div className="min-h-screen w-full flex justify-center items-center bg-black p-6">
-          <div className="bg-gray-900 backdrop-blur-md shadow-xl rounded-2xl p-8 max-w-lg w-full flex flex-col items-center border border-white/20">
+          <div className="bg-gray-900 backdrop-blur-md shadow-xl rounded-2xl p-8 max-w-3xl w-full border border-white/20">
             
             {/* Title */}
             <h1 className="text-3xl font-bold text-white mb-6 text-center">🚀 Solana Token Launchpad</h1>
       
-            {/* Image Upload */}
-            <div className="w-full flex flex-col items-center space-y-4">
-              <h2 className="text-lg font-semibold text-white/90">Upload Image:</h2>
+            {/* Form Grid */}
+            <div className="grid grid-cols-2 gap-6">
+              
+              {/* Name Field */}
+              <div className="col-span-1">
+                <label className="text-white/90 font-semibold">* Name</label>
+                <input 
+                  ref={nameRef} 
+                  className="w-full px-4 py-3 border border-gray-700 rounded-lg bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-gray-500 transition mt-2" 
+                  type="text" 
+                  placeholder="Ex: Solana"
+                />
+                <p className="text-xs text-gray-500 mt-1">Max 32 characters in your name</p>
+              </div>
+              
+              {/* Symbol Field */}
+              <div className="col-span-1">
+                <label className="text-white/90 font-semibold">* Symbol</label>
+                <input 
+                  ref={symbolRef} 
+                  className="w-full px-4 py-3 border border-gray-700 rounded-lg bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-gray-500 transition mt-2" 
+                  type="text" 
+                  placeholder="Ex: SOL"
+                />
+                <p className="text-xs text-gray-500 mt-1">Max 8 characters in your symbol</p>
+              </div>
       
-              {/* Hidden File Input */}
-              <input 
-                type="file" 
-                accept="image/*" 
-                onChange={handleChange} 
-                id="fileInput"
-                className="hidden"
-              />
+              {/* Decimals Field */}
+              <div className="col-span-1">
+                <label className="text-white/90 font-semibold">* Decimals</label>
+                <input 
+                  ref={decimalRef} 
+                  className="w-full px-4 py-3 border border-gray-700 rounded-lg bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-gray-500 transition mt-2" 
+                  type="number" 
+                  defaultValue={6}
+                />
+                <p className="text-xs text-gray-500 mt-1">Most tokens use 6 decimals</p>
+              </div>
       
-              {/* Custom Upload Button */}
-              <label 
-                htmlFor="fileInput" 
-                className="px-6 py-2 bg-gray-800 text-white text-sm font-medium rounded-lg cursor-pointer hover:bg-gray-700 transition"
-              >
-                📤 Upload Image
-              </label>
+              {/* Supply Field */}
+              <div className="col-span-1">
+                <label className="text-white/90 font-semibold">* Supply</label>
+                <input 
+                  ref={initalSupplyRef} 
+                  className="w-full px-4 py-3 border border-gray-700 rounded-lg bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-gray-500 transition mt-2" 
+                  type="number" 
+                  defaultValue={1}
+                />
+                <p className="text-xs text-gray-500 mt-1">Most tokens use 10B</p>
+              </div>
       
-              {/* Display File Name or Image Preview */}
-              {file ? (
-                <div className="flex flex-col items-center">
-                  <p className="text-sm text-gray-400">{fileName}</p>
-                  <img 
-                    src={file} 
-                    alt="Uploaded Preview" 
-                    className="mt-2 w-[140px] h-[180px] rounded-lg shadow-lg border border-gray-300"
+              {/* Description Field */}
+              <div className="col-span-1">
+                <label className="text-white/90 font-semibold">* Description</label>
+                <textarea 
+                  ref={descriptionRef} 
+                  className="w-full px-4 py-3 border border-gray-700 rounded-lg bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-gray-500 transition mt-2 h-24" 
+                  placeholder="Ex: First community token on Solana..."
+                ></textarea>
+                <p className="text-xs text-gray-500 mt-1">0/500</p>
+              </div>
+      
+              {/* Image Upload */}
+              <div className="col-span-1 flex flex-col">
+                <label className="text-white/90 font-semibold">* Image</label>
+                <div className="relative w-full h-16 border border-gray-600 rounded-lg flex flex-col items-center justify-center mt-2 cursor-pointer bg-gray-800 hover:bg-gray-700 transition">
+                  <input 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={handleChange} 
+                    id="fileInput" 
+                    className="hidden"
                   />
+                  <label htmlFor="fileInput" className="flex flex-col items-center text-gray-300 text-sm">
+                    <div className="text-2xl">📤</div>
+                    upload image
+                  </label>
                 </div>
-              ) : (
-                <p className="text-sm text-gray-400">No file chosen</p>
-              )}
-            </div>
-
-            {/* <button 
-              className="mt-6 w-full px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white text-lg font-bold rounded-lg shadow-lg transition duration-300"
-              onClick={saveImage}
-            ></button> */}
-      
-            {/* Input Fields */}
-            <div className="w-full flex flex-col space-y-4 mt-6">
-              <input 
-                ref={nameRef} 
-                className="w-full px-4 py-3 border border-gray-700 rounded-lg bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-gray-500 transition" 
-                type="text" 
-                placeholder="Token Name"
-              />
-              <input 
-                ref={symbolRef} 
-                className="w-full px-4 py-3 border border-gray-700 rounded-lg bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-gray-500 transition" 
-                type="text" 
-                placeholder="Token Symbol"
-              />
-              {/* <input 
-                ref={imageUrlRef} 
-                className="w-full px-4 py-3 border border-gray-700 rounded-lg bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-gray-500 transition" 
-                type="text" 
-                placeholder="Token Image URL"
-              /> */}
-              {/* <input 
-                ref={initalSupplyRef} 
-                className="w-full px-4 py-3 border border-gray-700 rounded-lg bg-black text-white placeholder-gray-400 focus:ring-2 focus:ring-gray-500 transition" 
-                type="text" 
-                placeholder="Initial Token Supply"
-              /> */}
+                {/* Display File Name or Image Preview */}
+                {file && (
+                  <div className="flex flex-col items-center mt-2 bg-gray-800 p-2 rounded-lg border border-gray-600 w-full">
+                    <p className="text-sm text-gray-400">{fileName}</p>
+                    <img 
+                      src={file} 
+                      alt="Uploaded Preview" 
+                      className="mt-2 w-[140px] h-[140px] rounded-lg shadow-lg border border-gray-500 object-cover"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
       
             {/* Create Token Button */}
@@ -256,6 +278,4 @@ export function CreateToken() {
         </div>
       );
       
-    
-    
-}    
+    }      
