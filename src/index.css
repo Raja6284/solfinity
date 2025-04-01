@@ -1,1 +1,64 @@
 @import "tailwindcss";
+
+
+body {
+    @apply bg-black text-white;
+  }
+  
+  /* Custom animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .animate-slideIn {
+    animation: slideIn 0.3s ease-in-out;
+  }
+  
+  /* Wallet adapter button styling */
+  .wallet-adapter-button {
+    @apply bg-blue-600 hover:bg-blue-700 transition-colors rounded-lg text-white font-medium;
+  }
+  
+  .wallet-adapter-button-trigger {
+    @apply rounded-lg;
+  }
+  
+  .wallet-adapter-dropdown-list {
+    @apply bg-gray-800 border border-gray-700 rounded-lg shadow-xl;
+  }
+  
+  .wallet-adapter-dropdown-list-item {
+    @apply text-white hover:bg-gray-700 transition-colors;
+  }
+  
+  /* Input number arrows */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  
+  

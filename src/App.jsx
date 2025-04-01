@@ -27,7 +27,7 @@ import { SolanaFaucet } from "./pages/SolanaFaucet";
 function App() {
 
   const { network } = useNetwork()
-  console.log(network)
+  //console.log(network)
 
   const endpoint = {
     "Testnet": "https://solana-testnet.g.alchemy.com/v2/-wgX0L1sP7MA475YuImcVvf6fB4ymZQx",
@@ -35,7 +35,7 @@ function App() {
     "Mainnet": "https://solana-mainnet.g.alchemy.com/v2/-wgX0L1sP7MA475YuImcVvf6fB4ymZQx"
   }
 
-  console.log(endpoint[network])
+  //console.log(endpoint[network])
 
   return (
     <>
