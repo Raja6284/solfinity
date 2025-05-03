@@ -22,7 +22,7 @@ import { clusterApiUrl } from '@solana/web3.js';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import { SolanaFaucet } from "./pages/SolanaFaucet";
 
-
+ import { MyTokens } from "./pages/Owned-tokne";
 
 function App() {
 
@@ -51,6 +51,7 @@ function App() {
                 <Route path="airdrop" element={<SolanaFaucet />} />
                 <Route path="create-token" element={<CreateToken />} />
                 <Route path="create-liquidity" element={<CreateLiquidity />} />
+                <Route path="my-tokens" element={<MyTokens />} />
                 <Route path="*" element={<NoPage />} />
               </Routes>
             </Layout>
